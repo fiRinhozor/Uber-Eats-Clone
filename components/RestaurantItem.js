@@ -1,5 +1,6 @@
-import { View, Text } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 export const localRestaurants = [
   {
@@ -31,42 +32,22 @@ export const localRestaurants = [
   },
 ];
 
-export default function RestaurantItems({ navigation, ...props }) {
+export default function RestaurantItem() {
   return (
-    <>
-      {props.restaurantData.map((restaurant, index) => (
-        <TouchableOpacity
-          key={index}
-          activeOpacity={1}
-          style={{ marginBottom: 30 }}
-          onPress={() =>
-            navigation.navigate("RestaurantDetail", {
-              name: restaurant.name,
-              image: restaurant.image_url,
-              price: restaurant.price,
-              reviews: restaurant.review_count,
-              rating: restaurant.rating,
-              categories: restaurant.categories,
-            })
-          }
-        >
-          <View
-            style={{ marginTop: 10, padding: 15, backgroundColor: "white" }}
-          >
-            <RestaurantImage image={restaurant.image_url} />
-            <RestaurantInfo name={restaurant.name} rating={restaurant.rating} />
-          </View>
-        </TouchableOpacity>
-      ))}
-    </>
+    <TouchableOpacity activeOpacity={1} style={{ marginBottom: 30 }}>
+      <View style={{ marginTop: 10, padding: 15, backgroundColor: "white" }}>
+        <RestaurantImage />
+        <RestaurantInfo />
+      </View>
+    </TouchableOpacity>
   );
 }
 
-const RestaurantImage = (props) => (
+const RestaurantImage = () => (
   <>
     <Image
       source={{
-        uri: props.image,
+        uri: "https://static.onecms.io/wp-content/uploads/sites/9/2020/04/24/ppp-why-wont-anyone-rescue-restaurants-FT-BLOG0420.jpg",
       }}
       style={{ width: "100%", height: 180 }}
     />
@@ -76,7 +57,7 @@ const RestaurantImage = (props) => (
   </>
 );
 
-const RestaurantInfo = (props) => (
+const RestaurantInfo = () => (
   <View
     style={{
       flexDirection: "row",
@@ -86,8 +67,10 @@ const RestaurantInfo = (props) => (
     }}
   >
     <View>
-      <Text style={{ fontSize: 15, fontWeight: "bold" }}>{props.name}</Text>
-      <Text style={{ fontSize: 13, color: "gray" }}>30-45 • min</Text>
+      <Text style={{ fontSize: 15, fontWeight: "bold" }}>
+        Farmhouse Kitchen Thai Cuisine
+      </Text>
+      <Text style={{ fontSize: 15, color: "gray" }}>30-40 minutes</Text>
     </View>
     <View
       style={{
@@ -99,7 +82,7 @@ const RestaurantInfo = (props) => (
         borderRadius: 15,
       }}
     >
-      <Text>{props.rating}</Text>
+      <Text>4.5</Text>
     </View>
   </View>
 );
