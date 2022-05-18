@@ -11,9 +11,7 @@ const YELP_API_KEY =
   "xIcZKWoDTdjTTcqgnyrz-Y6hbbWSqX7u1BkwV2pGpSBhHNXS_jNp20a_ZetmuStMWbswicYUdLKYFXUqKOCJyDRQ9Ham2QDMJ2WPZOy0_-AoA96jqQlywKKjsDeEYnYx";
 
 export default function Home() {
-  const [restaurantData, setRestaurantData] = React.useState([
-    localRestaurants,
-  ]);
+  const [restaurantData, setRestaurantData] = React.useState(localRestaurants);
 
   const getRestaurantsFromYelp = () => {
     const yelpUrl = `https://api.yelp.com/v3/businesses/search?term=restaurants&location=SanDiego`;
@@ -26,18 +24,12 @@ export default function Home() {
 
     return fetch(yelpUrl, apiOptions)
       .then((res) => res.json())
-      .then((json) =>
-        setRestaurantData(
-          json.businesses.filter((business) =>
-            business.transactions.includes(activeTab.toLowerCase())
-          )
-        )
-      );
+      .then((json) => setRestaurantData(json.businesses));
   };
 
-  /*useEffect(() => {
+  useEffect(() => {
     getRestaurantsFromYelp();
-  }, []);*/
+  }, []);
 
   return (
     <SafeAreaView style={{ backgroundColor: "#eee", flex: 1 }}>
